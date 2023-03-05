@@ -1,0 +1,116 @@
+{
+    "header": {
+        "title": "Smart Rewrite | Make ChatGPT Undetectable",
+        "description": "Test description",
+        "keywords": "chatgpt, chatgpt human, chatgpt human like, gpt, ai, ai to human, how to make ai human, gpt hero, gpt undetectable, get around gpt detector",
+        "icon": "/images/logo.png"
+    },
+    "component_colors": {
+        "navbar": "bg-purple-dark",
+        "navbar_active": "bg-gray-900",
+        "primary_background": "bg-gray-900",
+        "secondary_background": "bg-gray-800",
+        "dark": {
+            
+        },
+        "light": {
+            
+        }
+    },
+    "writing-levels": [
+        "Grade 1",
+        "Grade 2",
+        "Grade 3",
+        "Grade 4",
+        "Grade 5",
+        "Grade 6",
+        "Grade 7",
+        "Grade 8",
+        "Grade 9",
+        "Grade 10",
+        "Grade 11",
+        "Grade 12",
+        "Year 1 University",
+        "Year 2 University",
+        "Year 3 University",
+        "Year 4 University"
+    ],
+    "writing-personalities": [
+        "Student",
+        "Geographer",
+        "Data scientist",
+        "Persuasive",
+        "Mathematician"
+    ],
+    "writing-wording": [
+        "Fun and unique but commonly used",
+        "Basic and commonly occuring",
+        "Extremely simple"
+    ],
+    "safelist": ["bg-purple-light-600", "bg-purple-light", "bg-gray-200", "bg-gray-300", "hover:text-black", "hover:text-white", "text-gray-800", "text-gray-900", "bg-gray-100", "dark:bg-gray-900", "bg-purple-dark", "bg-gray-900", "bg-gray-800", "border-velvet", "bg-velvet-light"],
+    "variables": { 
+        "name": "Smart Rewrite", 
+        "handle": "Mangoz" ,
+        "handleUrl": "https://mangoz1x.com/",
+        "facebook": "https://facebook.com/",
+        "twitter": "https://twitter.com/",
+        "linkedin": "https://linkedin.com/",
+        "instagram": "https://instagram.com/"
+    },
+    "extend": {
+        "colors": {
+            "velvet": "#1a010d",
+            "velvet-light": "#4f0d2e",
+            "purple-dark": "#180a33",
+            "purple-light": "#100624",
+            "purple-light-600": "#1d0d3d"
+        }
+    },
+    "navbar": {
+        "buttons": [{
+            "name": "Home",
+            "href": "/"
+        }, {
+            "name": "Pricing",
+            "href": "/pricing"
+        }, {
+            "name": "Login",
+            "href": "/auth/login"
+        }, {
+            "name": "Sign up",
+            "href": "/auth/signup"
+        }]
+    },
+    "loggedIn": {
+        "navbar": {
+            "buttons": [{
+                "name": "Home",
+                "href": "/"
+            }, {
+                "name": "Smart Rewrite",
+                "href": "/models/rewrite"
+            }, {
+                "name": "Pricing",
+                "href": "/pricing"
+            }]
+        }
+    },
+    "paying": {
+        "navbar": {
+            "buttons": [{
+                "name": "Home",
+                "href": "/"
+            }, {
+                "name": "Smart Rewrite",
+                "href": "/models/rewrite"
+            }, {
+                "name": "Upgrade",
+                "href": "/pricing/upgrade"
+            }]
+        }
+    },
+    "hero": {
+        "title": "Make Your Writing Flow",
+        "description": "Easily copy and paste essays/writing and choose from different personalities, writing levels, and wording schemes to generate more coherant and more professional writing."
+    }
+}
