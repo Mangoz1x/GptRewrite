@@ -26,7 +26,7 @@ export async function getServerSideProps({ req, res }) {
         }
     };
     
-    const query = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+    const query = await db.findOne({ uuid }, "GPTRewrite", "users");
     const decryptedToken = decrypt(token, key);
 
     if (!query || decrypt(query.token, process.env.ENCRYPTION_KEY) !== decryptedToken) return { 

@@ -10,7 +10,7 @@ const Module = async (req, res) => {
         const { uuid, token, key } = getCookies({ req, res });
         if (!(uuid || token || key)) return res.redirect(`/auth/signup?redirect=/pricing/buy/${req?.query?.plan || "basic"}`);
         
-        let query = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+        let query = await db.findOne({ uuid }, "GPTRewrite", "users");
         if (!query) return res.redirect(process.env.UNSIGNED_REDIRECT);
         const decryptedToken = decrypt(token, key);
         
@@ -38,7 +38,7 @@ const Module = async (req, res) => {
             });
             
             query.stripeCustomer = customer.id;
-            await db.updateOne({ uuid: query.uuid }, { $set: { stripeCustomer: customer.id }}, "PublicModelLibrary", "users");
+            await db.updateOne({ uuid: query.uuid }, { $set: { stripeCustomer: customer.id }}, "GPTRewrite", "users");
         };
 
         if (!query.stripeCustomer) await CreateCustomer();

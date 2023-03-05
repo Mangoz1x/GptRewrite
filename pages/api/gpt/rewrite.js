@@ -17,7 +17,7 @@ const Module = async (req, res) => {
         const body = Parse(req.body);
         const { key, uuid, token } = getCookies({ req, res });
     
-        let user = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+        let user = await db.findOne({ uuid }, "GPTRewrite", "users");
         if (!user) return res.status(500).json({ error: `User not found` });
     
         if (decrypt(user?.token, process.env.ENCRYPTION_KEY) !== decrypt(token, key))
@@ -30,7 +30,7 @@ const Module = async (req, res) => {
             return res.status(500).json({ error: `You're account does not have access to this feature yet` });
 
         if (!(user?.usageLimit || user?.usageLimit?.rewrite || user?.usageLimit?.rewrite?.used || user?.usageLimit?.rewrite?.given)) {
-            await db.updateOne({ uuid: user.uuid }, { $set: { usageLimit: { rewrite: { used: 0, given: 20 }} }}, "PublicModelLibrary", "users");
+            await db.updateOne({ uuid: user.uuid }, { $set: { usageLimit: { rewrite: { used: 0, given: 20 }} }}, "GPTRewrite", "users");
             user.usageLimit = { rewrite: { used: 0, given: 20 }};
         }
 
@@ -79,8 +79,8 @@ const Module = async (req, res) => {
             cost: ((response?.data?.usage?.total_tokens || 0) / 1000) * 0.02
         };
 
-        await db.updateOne({ uuid: user.uuid }, { $set: { usageLimit: { rewrite: { used: (parseFloat(user?.usageLimit?.rewrite?.used) || 0)+1, given: user.usageLimit.rewrite.given || 20 } } } }, "PublicModelLibrary", "users");
-        await db.insertOne(responseData, "PublicModelLibrary", "generations");
+        await db.updateOne({ uuid: user.uuid }, { $set: { usageLimit: { rewrite: { used: (parseFloat(user?.usageLimit?.rewrite?.used) || 0)+1, given: user.usageLimit.rewrite.given || 20 } } } }, "GPTRewrite", "users");
+        await db.insertOne(responseData, "GPTRewrite", "generations");
 
         return res.status(200).json({
             generated: responseData.generated,

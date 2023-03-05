@@ -9,7 +9,7 @@ const Handler = async (req, res) => {
         return res.status(400).json({ session: "inactive" });
 
         
-    const query = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+    const query = await db.findOne({ uuid }, "GPTRewrite", "users");
     if (!query) return res.status(400).json({ session: "inactive" });
     const decryptedToken = decrypt(token, key);
 

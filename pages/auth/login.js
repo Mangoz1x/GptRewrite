@@ -85,7 +85,7 @@ export async function getServerSideProps({ req, res }) {
     const { uuid, token, key } = getCookies({ req, res });
     if (!(uuid || token || key)) return { props: {}};
     
-    const query = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+    const query = await db.findOne({ uuid }, "GPTRewrite", "users");
     const decryptedToken = decrypt(token, key);
     if (!query || decrypt(query.token, process.env.ENCRYPTION_KEY) !== decryptedToken) return { props: {}};
 

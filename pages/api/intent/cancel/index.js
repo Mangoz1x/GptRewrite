@@ -11,7 +11,7 @@ const Module = async (req, res) => {
         const password = req.body;
         const { key, uuid, token } = getCookies({ req, res });
     
-        let user = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+        let user = await db.findOne({ uuid }, "GPTRewrite", "users");
         if (!user) return res.status(500).json({ error: `User not found` });
     
         if (decrypt(user?.token, process.env.ENCRYPTION_KEY) !== decrypt(token, key))
@@ -43,7 +43,7 @@ const Module = async (req, res) => {
             },
             subscription: null,
             subscriptionId: null
-        }}, "PublicModelLibrary", "users");
+        }}, "GPTRewrite", "users");
 
         return res.status(200).json({ canceled: true });
     } catch (err) {

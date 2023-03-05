@@ -21,7 +21,7 @@ const Handler = async (req, res) => {
     
     const encryptedToken = encrypt(decryptedTokenId, process.env.ENCRYPTION_KEY);
 
-    const checkEmail = await db.findOne({ email }, "PublicModelLibrary", "users");
+    const checkEmail = await db.findOne({ email }, "GPTRewrite", "users");
     if (!checkEmail)
         return res.status(400).json({ error: "Incorrect email or password" });
 
@@ -36,7 +36,7 @@ const Handler = async (req, res) => {
             attemptAgent: userAgent 
         }],
         token: encryptedToken.encrypted,
-    }}, "PublicModelLibrary", "users");
+    }}, "GPTRewrite", "users");
 
     if (response.acknowledged == true) {
         setCookie("token", encrypted, { secure: true, httpOnly: true, req, res });

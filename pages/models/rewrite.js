@@ -162,7 +162,7 @@ export async function getServerSideProps({ req, res }) {
         const { uuid, token, key } = getCookies({ req, res });
         if (!(uuid || token || key)) return { redirect: {destination: process.env.UNSIGNED_REDIRECT} };
     
-        const query = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+        const query = await db.findOne({ uuid }, "GPTRewrite", "users");
         if (!query) return { redirect: { destination: process.env.UNSIGNED_REDIRECT }};
         const decryptedToken = decrypt(token, key);
     

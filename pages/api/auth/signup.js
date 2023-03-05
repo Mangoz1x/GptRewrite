@@ -31,7 +31,7 @@ const Handler = async (req, res) => {
   const decryptedTokenId = crypto.randomBytes(64).toString('hex');
   const { key, encrypted } = encrypt(decryptedTokenId);    
 
-  const checkEmail = await db.findOne({ email }, "PublicModelLibrary", "users");
+  const checkEmail = await db.findOne({ email }, "GPTRewrite", "users");
   if (checkEmail) 
     return res.status(400).json({ error: "This email is already in use" });
 
@@ -66,7 +66,7 @@ const Handler = async (req, res) => {
         given: 20 
       }
     }
-  }, "PublicModelLibrary", "users");
+  }, "GPTRewrite", "users");
 
   if (response.acknowledged == true) {
     setCookie("token", encrypted, { secure: true, httpOnly: true, req, res });

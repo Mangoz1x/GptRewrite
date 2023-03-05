@@ -7,7 +7,7 @@ const Module = async (req, res) => {
     const body = Parse(req.body);
     const { key, uuid, token } = getCookies({ req, res });
 
-    const user = await db.findOne({ uuid }, "PublicModelLibrary", "users");
+    const user = await db.findOne({ uuid }, "GPTRewrite", "users");
     
     if (!user) 
         return res.status(500).json({ error: `Invalid user credentials [uuid]` });
