@@ -8,11 +8,11 @@ import gateway from "stripe";
 const Navbar = dynamic(() => import("../../../components/Navbar"));
 const stripe = gateway(process.env.STRIPE_KEY)
 
-const Module = ({ subscription, avatar, plan, features }) => {
+const Module = ({ ytmp4, subscription, avatar, plan, features }) => {
     return (
         <div style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }} className="w-full h-[100vh]">
             <div className="w-full h-fit fixed top-0" style={{ zIndex: 9 }}>
-                <Navbar subscriptionType={subscription} webData={webData} avatarCode={avatar} session={true} transparent={true} scrollFade={true} />
+                <Navbar ytmp4={ytmp4} subscriptionType={subscription} webData={webData} avatarCode={avatar} session={true} transparent={true} scrollFade={true} />
             </div>
 
             <div className="flex justify-center items-center flex-col px-5 w-full h-full">
@@ -65,7 +65,8 @@ export async function getServerSideProps(req, res) {
                 avatar: query.avatar,
                 plan: sub,
                 features: features[sub],
-                subscription: sub
+                subscription: sub,
+                ytmp4: query?.access?.includes("ytmp4") ? true : false
             }
         }
     } catch (err) {

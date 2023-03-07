@@ -12,10 +12,10 @@ const stripe = gateway(process.env.STRIPE_KEY);
 const Navbar = dynamic(() => import("../../components/Navbar"));
 const Footer = dynamic(() => import("../../components/Footer"));
 
-const Module = ({ avatar, session, basic, pro, expert }) => {
+const Module = ({ ytmp4, avatar, session, basic, pro, expert }) => {
     return (<>
         <div className="w-full h-fit fixed top-0" style={{ zIndex: 9 }}>
-          <Navbar webData={webData} avatarCode={avatar} session={session || false} transparent={true} scrollFade={true} />
+          <Navbar ytmp4={ytmp4} webData={webData} avatarCode={avatar} session={session || false} transparent={true} scrollFade={true} />
         </div>
         <section style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }} className="min-h-[100vh] text-gray-400 body-font overflow-hidden">
             <div className="container px-5 py-24 mx-auto mt-20">
@@ -233,7 +233,8 @@ export async function getServerSideProps({ req, res }) {
                     session: true,
                     basic: "/api/intent/basic",
                     pro: "/api/intent/pro",
-                    expert: "/api/intent/expert"
+                    expert: "/api/intent/expert",
+                    ytmp4: query?.access?.includes("ytmp4") ? true : false
                 }
             }
         }
@@ -247,7 +248,8 @@ export async function getServerSideProps({ req, res }) {
             session: true,
             basic: "/api/intent/basic",
             pro: "/api/intent/pro",
-            expert: "/api/intent/expert"
+            expert: "/api/intent/expert",
+            ytmp4: query?.access?.includes("ytmp4") ? true : false
         }
     }
 }

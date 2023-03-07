@@ -6,14 +6,14 @@ import db from "../../mongo/interact";
 
 const Navbar = dynamic(() => import("../../components/Navbar"));
 
-const Module = ({ session, avatar, subscription }) => {
+const Module = ({ ytmp4, session, avatar, subscription }) => {
     let filteredWebData = webData;
     filteredWebData.loggedIn.navbar.buttons = filteredWebData.loggedIn.navbar.buttons.filter(button => button.href != "/models/rewrite")
     
     return (
         <div className="min-h-screen h-screen w-full" style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }}>
             <div className="w-full h-fit fixed top-0 bg-purple-dark">
-                <Navbar subscriptionType={subscription} webSession={session} avatarCode={avatar} webData={webData} transparent={true} />
+                <Navbar ytmp4={ytmp4} subscriptionType={subscription} webSession={session} avatarCode={avatar} webData={webData} transparent={true} />
             </div>
 
             <div className="flex flex-col justify-center items-center w-full h-full">
@@ -54,7 +54,8 @@ export async function getServerSideProps({ req, res }) {
         props: {
             avatar: query?.avatar,
             session: true,
-            subscription: query?.subscription || null
+            subscription: query?.subscription || null,
+            ytmp4: query?.access?.includes("ytmp4") ? true : false
         }
     }
 }

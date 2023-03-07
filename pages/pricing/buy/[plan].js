@@ -15,7 +15,7 @@ const client = loadStripe("pk_test_51MaKfOBL31fVfU1SzFrdMkpVPXWXtWEUHItf9t0Xxl1G
 const Navbar = dynamic(() => import("../../../components/Navbar"));
 const Payment = dynamic(() => import("../../../components/Payment"));
 
-const Module = ({ avatar, amount, secret, id, plan, features }) => {
+const Module = ({ ytmp4, avatar, amount, secret, id, plan, features }) => {
     const appearance = {
         theme: 'night',
         variables: {
@@ -49,7 +49,7 @@ const Module = ({ avatar, amount, secret, id, plan, features }) => {
     return (
         <div style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }} className="w-full h-fit min-h-[100vh]">
             <div className="w-full h-fit" style={{ zIndex: 9 }}>
-                <Navbar webData={webData} avatarCode={avatar} session={true} transparent={true} scrollFade={true} />
+                <Navbar ytmp4={ytmp4} webData={webData} avatarCode={avatar} session={true} transparent={true} scrollFade={true} />
             </div>
 
             <div className="w-full h-fit flex items-center flex-col">
@@ -141,7 +141,8 @@ export async function getServerSideProps(req, res) {
                 amount: selected,
                 avatar: query.avatar,
                 plan: plan,
-                features: features[plan]
+                features: features[plan],
+                ytmp4: query?.access?.includes("ytmp4") ? true : false
             }
         }
     } catch (err) {

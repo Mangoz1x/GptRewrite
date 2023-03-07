@@ -12,10 +12,10 @@ const stripe = gateway(process.env.STRIPE_KEY);
 const Navbar = dynamic(() => import("../../../components/Navbar"));
 const Footer = dynamic(() => import("../../../components/Footer"));
 
-const Module = ({ avatar, subscription, session, basic, pro, expert }) => {
+const Module = ({ ytmp4, avatar, subscription, session, basic, pro, expert }) => {
     return (<>
         <div className="w-full h-fit fixed top-0" style={{ zIndex: 9 }}>
-          <Navbar subscriptionType={subscription} webData={webData} avatarCode={avatar} session={session || false} transparent={true} scrollFade={true} />
+          <Navbar ytmp4={ytmp4} subscriptionType={subscription} webData={webData} avatarCode={avatar} session={session || false} transparent={true} scrollFade={true} />
         </div>
         <section style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }} className="min-h-[100vh] text-gray-400 body-font overflow-hidden">
             <div className="container px-5 py-24 mx-auto mt-20">
@@ -229,7 +229,8 @@ export async function getServerSideProps({ req, res }) {
             basic: "/api/intent/upgrade/basic",
             pro: "/api/intent/upgrade/pro",
             expert: "/api/intent/upgrade/expert",
-            subscription: query?.subscription
+            subscription: query?.subscription,
+            ytmp4: query?.access?.includes("ytmp4") ? true : false
         }
     }
 }

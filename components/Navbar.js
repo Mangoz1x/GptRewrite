@@ -8,26 +8,30 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Module({ webData, subscriptionType, avatarCode, transparent, scrollFade, webSession }) {
+export default function Module({ webData, ytmp4, subscriptionType, avatarCode, transparent, scrollFade, webSession }) {
     const [activeTab, setActiveTab] = useState(webData?.navbar?.buttons?.[0]?.name || "Null");
     const [dynamicTransparent, setDynamicTransparent] = useState(transparent || false);
     const [session, setSession] = useState(webSession || null);
     const [avatar, setAvatar] = useState(avatarCode || "");
     const [subscription, setSubscription] = useState(subscriptionType || null);
 
-    const buttons = subscription 
-        ? webData.paying.navbar.buttons 
-        : session 
-            ? webData.loggedIn.navbar.buttons 
+    let buttons = subscription
+        ? webData.paying.navbar.buttons
+        : session
+            ? webData.loggedIn.navbar.buttons
             : webData.navbar.buttons;
+
+    if (ytmp4 == true) {
+        buttons = [...buttons, { name: "YTMP4", href: "/ytmp4" }]
+    }
 
     const evalSession = async () => {
         const session = await SessionActive();
         setSession(session?.session || false);
         setAvatar(session?.avatar);
         setSubscription(session?.subscription);
-    } 
-    
+    }
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             setActiveTab(window.location.pathname);
@@ -39,9 +43,9 @@ export default function Module({ webData, subscriptionType, avatarCode, transpar
             });
         }
     }, [])
-    
+
     return (
-        <Disclosure as="nav" className={`${dynamicTransparent ? "" :  webData.component_colors.navbar} transition-all duration-300`}>
+        <Disclosure as="nav" className={`${dynamicTransparent ? "" : webData.component_colors.navbar} transition-all duration-300`}>
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 sm:py-3">

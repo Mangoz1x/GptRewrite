@@ -14,7 +14,7 @@ const Handler = async (req, res) => {
     const decryptedToken = decrypt(token, key);
 
     if (decrypt(query.token, process.env.ENCRYPTION_KEY) === decryptedToken)
-        return res.status(200).json({ session: "active", avatar: query?.avatar || null, subscription: query?.subscription || null });
+        return res.status(200).json({ session: "active", ytmp4: query?.access?.includes("ytmp4") ? true : false, avatar: query?.avatar || null, subscription: query?.subscription || null });
 
     return res.status(400).json({ session: "inactive" });
 };

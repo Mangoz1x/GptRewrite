@@ -4,13 +4,15 @@ import Link from "next/link";
 import AOS from 'aos';
 import "aos/dist/aos.css";
 import { GlobeAsiaAustraliaIcon, LockClosedIcon, ArrowPathIcon } from '@heroicons/react/20/solid'
-
+import { getCookies } from 'cookies-next';
 import { useEffect } from 'react';
+import db from "../mongo/interact";
+import { decrypt } from '../helpers/decrypt';
 
 const Navbar = dynamic(() => import("../components/Navbar"));
 const Footer = dynamic(() => import("../components/Footer"));
 
-export default function Home({ webData }) {
+export default function Home({ webData, ytmp4, avatar, session }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     AOS.init();
@@ -49,7 +51,7 @@ export default function Home({ webData }) {
       </Head>
       <div className="w-full min-h-screen" style={{ background: `linear-gradient(120deg, rgba(2,0,36,1) 0%, rgba(29,0,15,1) 100%)` }}>
         <div className="w-full h-fit fixed top-0" style={{ zIndex: 9 }}>
-          <Navbar webData={webData} session={false} transparent={true} scrollFade={true} />
+          <Navbar webData={webData} session={session || false} ytmp4={ytmp4 || false} avatarCode={avatar || null} transparent={true} scrollFade={true} />
         </div>
 
         <div className={`hero min-h-screen h-fit flex items-center justify-center`}>
@@ -150,4 +152,24 @@ export default function Home({ webData }) {
       <Footer webData={webData} color="bg-purple-dark" />
     </>
   )
+}
+
+export async function getServerSideProps({ req, res }) {
+  const { uuid, token, key } = getCookies({ req, res });
+  if (!uuid || !token || !key) return { props: {}};
+  const query = await db.findOne({ uuid }, "GPTRewrite", "users");
+  if (!query) return { props: {}};
+
+  const decryptedToken = decrypt(token, key);
+  if (!(decrypt(query.token, process.env.ENCRYPTION_KEY) === decryptedToken)) return { props: {}};
+  if (query?.admin === "true") return { redirect: { destination: process.env.ADMIN_REDIRECT }};
+
+  return {
+      props: {
+          avatar: query?.avatar,
+          session: true,
+          subscription: query?.subscription,
+          ytmp4: query?.access?.includes("ytmp4") ? true : false
+      }
+  }
 }
