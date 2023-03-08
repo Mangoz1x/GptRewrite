@@ -15,15 +15,13 @@ export default function Module({ webData, ytmp4, subscriptionType, avatarCode, t
     const [avatar, setAvatar] = useState(avatarCode || "");
     const [subscription, setSubscription] = useState(subscriptionType || null);
 
-    let buttons = subscription
+    let DataButtons = subscription
         ? webData.paying.navbar.buttons
         : session
             ? webData.loggedIn.navbar.buttons
             : webData.navbar.buttons;
 
-    if (ytmp4 == true) {
-        buttons = [...buttons, { name: "YTMP4", href: "/ytmp4" }]
-    }
+    const buttons = ytmp4 == true ? [...DataButtons, { name: "YTMP4", href: "/ytmp4" }] : [...DataButtons];
 
     const evalSession = async () => {
         const session = await SessionActive();
