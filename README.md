@@ -29,3 +29,27 @@ Smart Rewrite can be used in various ways:
 - **SEO/Web Content**: Rewrite your text in a way that isn't typical to AI. Use complex and unique words to improve your SEO or web content&#8203;&#8203;.
 
 We hope you find Smart Rewrite useful and look forward to your contributions to its development!
+
+## Deployment
+
+To deploy this project run
+
+```bash
+  npm install
+```
+
+Set up a MongoDB database and create a .env.local file, then 
+set your MongoDB uri. Then create your OpenAI account and enter your api key.
+
+```bash
+MONGO_URI=your_mongodb_uri
+OPENAI_API_KEY=your_openai_api_key
+```
+
+### MongoDB collections
+
+| Collection name |
+| :--: |
+| generations |
+| users |
+
